@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,11 @@ public class PlayerController : MonoBehaviour
     public float reload_delay = 0.2f;
     public float life_over_time = 2f;
     public float bullet_impulse = 30f;
-
+    public float life = 3f;
+    public GameObject panel_end;
 
     private bool fire_rate = true;
+    private bool player_controll_active = true;
 
     private Vector2 target_vector;
     private Vector3 mouse_position;
@@ -24,9 +26,26 @@ public class PlayerController : MonoBehaviour
         
     }
     private void FixedUpdate() {
-        player_controll();
+        if(player_controll_active)
+            player_controll();
     }
     
+    public void CollisionDetected(Aion1 aion1)
+    {
+        life--;
+        if(life <= 0){
+            GameEnd();
+        } 
+        
+    } 
+
+
+    private void GameEnd(){
+        panel_end.SetActive(true);
+        Destroy(ship);
+        player_controll_active = false;
+    }
+
     private void player_controll(){
         mouse_position = UnityEngine.Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target_vector = mouse_position - ship.transform.position;
@@ -90,8 +109,9 @@ public class PlayerController : MonoBehaviour
         else if(ship.transform.position.x >= boind_right)
             ship.transform.SetPositionAndRotation(new Vector3(boind_left + Bs, ship.transform.position.y, 0f),new Quaternion(0,0,0,0));
     }
-    
-    
+
+   
+
     private void fire(bool fire){
         if(fire){
             for(int i = 0; i < start_bullet.Length; i++){

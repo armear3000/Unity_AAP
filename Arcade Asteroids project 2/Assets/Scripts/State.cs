@@ -9,6 +9,9 @@ public class State : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
     
+    public void play_menu(){
+        SceneManager.LoadScene("Menu");
+    }
 
     public void exit_game(){
         Application.Quit();

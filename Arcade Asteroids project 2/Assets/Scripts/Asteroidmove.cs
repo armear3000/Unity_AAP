@@ -17,6 +17,8 @@ public class Asteroidmove : MonoBehaviour
   public GameObject system_parc_death;
   public Vector3 scaled_sp;
 
+
+
   private float Bs = 0.1f,Bo = 1.1f;
 
   private void FixedUpdate() {
@@ -45,7 +47,7 @@ public class Asteroidmove : MonoBehaviour
   {
      
   }
-  void death_spawn(){
+  public void death_spawn(){
     if(System.Convert.ToBoolean(spawn_after_death.Length)){
       GameObject asteroid_temp;
       for(int i = 0; i < UnityEngine.Random.Range(2, 4); i++){
